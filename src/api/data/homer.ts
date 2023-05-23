@@ -8,7 +8,7 @@ const response: SearchResponse = {
         "c": {
             // c : common bundle
             "ns": "asimo.dpademo.bundles.common",
-            "src": "/dist-bundles/bundle-common.js" // should be a verstioned URL
+            "src": "./dist-bundles/bundle-common.js" // should be a verstioned URL
         }
     },
     lang: "en", // default language

@@ -13,7 +13,7 @@ export const Img = component("Img", (props: ImgProps) => {
 
     return <div data-id={componentId()} className='img inline-block border rounded-md overflow-hidden' style={{ height, width }} >
         <a href={href}>
-            <img style={{ height, width }} alt={alt} src={src} />
+            <img style={{ height, width }} alt={alt} src={src} loading="lazy" />
         </a>
     </div>
 });
