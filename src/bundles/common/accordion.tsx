@@ -1,9 +1,9 @@
 import { component, componentId, useTraxState } from "@traxjs/trax-preact";
-import { LML } from "../../libs/lml/types";
 import { useContext } from "../utils";
 import { Lml2JsxIID } from "../../views/types";
 import { SearchServiceIID } from "../../stores/types";
 import { asm } from "@asimojs/asimo";
+import { LML } from "@asimojs/lml/dist/types";
 
 export interface AccordionProps {
     title?: LML;
@@ -14,6 +14,7 @@ export interface AccordionProps {
 
 export interface GroupSection {
     title: string;
+    iconSrc?: string;
     key: string;
     content: LML;
 }
@@ -32,7 +33,7 @@ export const Accordion = component("Accordion", (props: AccordionProps) => {
     const state = useTraxState<AccordionState>({ sections: {} });
     const sectionStates = state.sections;
 
-    return <div data-id={componentId()} className='accordion mt-7'>
+    return <div data-id={componentId()} className='accordion mt-7 border-b'>
         {!title ? "" :
             <div className="title text-xl pb-2">
                 {lml2jsx(title)}
@@ -42,6 +43,9 @@ export const Accordion = component("Accordion", (props: AccordionProps) => {
             {sections.map((section, idx) =>
                 <div className="section">
                     <div data-section-key={section.key} className={`${sectionClassName} flex border-t cursor-pointer`}>
+                        {section.iconSrc ? <div className="icon pe-4">
+                            <img className="object-fill border rounded" src={section.iconSrc} style={{ height: 30, width: 30 }} aria-hidden="true" />
+                        </div> : ""}
                         <div className="flex-1">{section.title}</div>
                         <div className="w-8">
                             <ArrowIcon idx={idx} up={!!sectionStates[section.key]} />

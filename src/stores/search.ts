@@ -2,8 +2,8 @@ import { asm } from "@asimojs/asimo";
 import { trax, Store } from "@traxjs/trax";
 import { SearchApiIID } from "../api/search";
 import { ComponentMap, NavServiceIID, SearchQuery, SearchService, SearchServiceIID } from "./types";
-import { LML } from "../libs/lml/types";
-import { lml2jsx, updateLML } from "../libs/lml/lml";
+import { LML } from "@asimojs/lml/dist/types";
+import { lml2jsx, updateLML } from "@asimojs/lml";
 import { h } from "preact";
 import { SearchMoreApiIID, SearchMoreQuery } from "../api/searchMore";
 import { BundleRef, SearchResponse } from "../api/types";
@@ -20,6 +20,7 @@ export function createSearchStore(): SearchService {
             },
             lastResult: null
         });
+        const baseComponents: { [key: string]: Function } = {};
 
         const srv = {
             data,
@@ -61,7 +62,9 @@ export function createSearchStore(): SearchService {
                     },
                     results: r,
                     lml2jsx: (lml: LML) => lml2jsx(lml, h, (name, ns) => {
-                        if (components && components[ns]) {
+                        if (!ns) {
+                            return baseComponents[name] || null;
+                        } else if (components && components[ns]) {
                             return components[ns][name] || null;
                         }
                         return null;
@@ -99,6 +102,10 @@ export function createSearchStore(): SearchService {
                 }
 
                 return true;
+            },
+
+            registerBaseComponent(name: string, cpt: Function) {
+                baseComponents[name] = cpt;
             }
         }
         return srv;

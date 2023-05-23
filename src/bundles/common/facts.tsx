@@ -1,7 +1,7 @@
 import { component, componentId } from "@traxjs/trax-preact";
-import { JsxContent, LML } from "../../libs/lml/types";
 import { useContext } from "../utils";
 import { Lml2JsxIID } from "../../views/types";
+import { JsxContent, LML } from "@asimojs/lml/dist/types";
 
 export interface FactsProps {
     cols?: number;
@@ -24,8 +24,8 @@ export const Facts = component("Facts", (props: FactsProps) => {
 
     if (cols > 1) {
         return <div data-id={componentId()} className='facts columns-2 pt-2'>
-            <div className="">{printFacts(0, mid)}</div>
-            <div className="">{printFacts(mid + 1, len - 1)}</div>
+            <div>{printFacts(0, mid)}</div>
+            <div>{printFacts(mid + 1, len - 1)}</div>
         </div>
     } else {
         return <div data-id={componentId()} className='facts  pt-2'>

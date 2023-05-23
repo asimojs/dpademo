@@ -27,6 +27,7 @@
     <script type="module">
 
         // The search result data should be dynamically inserted by the server when serving this page
+        // -> Copy data from src/api/data/homer.ts
 
         const searchResponse = {
             type: "SearchResponse",
@@ -36,7 +37,12 @@
                 "c": {
                     // c : common bundle
                     "ns": "asimo.dpademo.bundles.common",
-                    "src": "./dist-bundles/bundle-common.js" // should be a versioned URL
+                    "src": "./dist-bundles/bundle-common.js" // should be a verstioned URL
+                },
+                "ab": {
+                    // bundle simulating an A/B test
+                    "ns": "asimo.dpademo.bundles.abtest",
+                    "src": "./dist-bundles/bundle-abtest.js" // should be a verstioned URL
                 }
             },
             lang: "en", // default language
@@ -370,12 +376,6 @@
                             "logo": ["*c:img", { "height": 18, "width": 18, "src": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgBBgkIBwgKCgkLDRYPDQwMARsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwBGg8PGjclHyU3NzU3Ny83Nzc1NzU3Nys3NzU3Nzc3LTU1Ky03LSsrLSs1Ky0sNS0rKy0rKys3KystK//AABEIABAAEAMBEQACEQEDEQH/xAAVAAEBAAAAAAAAAAAAAAAAAAAFBP/EACUQAAEDAgUEAwAAAAAAAAAAAAECAxEEEgAGITFRBwgyQRMiYv/EABcBAAMBAAAAAAAAAAAAAAAAAAMEBQL/xAAgEQABBAICAwEAAAAAAAAAAAACAAEDBAYREjIHEzEF/9oADAMBAAIRAxEAPwBjK9Q/m9pVAhx2FKFqU56tgazGsesN/qOY4A5Q9lOqAxZezH8T9IpXTJy1K6r4yhLiLM+yqDPJ2094jVbxReJ+Vt05PV3mbelEMMjuFtbpKRtpwgWoPSlSBMSR4/kjiTgFV5JsPJydNzC0ebi2lQlh/tYCnq5kMoV9jZlY+II325wOauT+K+u1sS5Zzpl//9k=" }]
                         }
                     },
-                    "sideContent": ["*c:img", {
-                        "height": 92, "width": 92,
-                        "alt": "homer simpson from www.simpsonspark.com",
-                        "href": "https://www.simpsonspark.com/personnages/homer-simpson",
-                        "src": "data:image/png;base64,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"
-                    }],
                 }, ["#div.p",
                         ["#em", "Homer"], " ", ["#em", "Simpson"], " est un père de famille de 39 ans qui travaille au poste d'inspecteur de la sécurité dans une centrale nucléaire. Fainéant et gras, ",
                         ["#em", "Homer"], " passe ...",
@@ -488,6 +488,44 @@
                 //     }]
                 // ],
 
+                ["*c:accordion", {
+                    "title": "Related searches",
+                    "sections": [
+                        {
+                            "title": "Young Homer Simpson",
+                            "iconSrc": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSim9JBP-mFgaRFmyY4y91edZCgbhNCNk8O1LwnKyXO3YHHhxZHNg35AA&s=0",
+                            "key": "2ahUKEwjczO7Zgub-AhUZVKQEHZ62Du0Qq7kBKAB6BAhhEBA",
+                            "content": [
+                                "Under construction"
+                            ]
+                        },
+                        {
+                            "title": "Homer Simpson meme",
+                            "iconSrc": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSduRUFXMzQutLXwkh8x7etaPhl12xwFBptYe4SZmGOTFuCqhA4z8P0&s=0",
+                            "key": "2ahUKEwjczO7Zgub-AhUZVKQEHZ62Du0Qq7kBKAB6BAhfEBB",
+                            "content": [
+                                "Under construction"
+                            ]
+                        },
+                        {
+                            "title": "Simpson characters",
+                            "iconSrc": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTo3oa_6ujxiK5nwD9OONuminMQnYEy_okrSXpbqrw&s=0",
+                            "key": "2ahUKEwjczO7Zgub-AhUZVKQEHZ62Du0Qq7kBKAB6BAhkEBC",
+                            "content": [
+                                "Under construction"
+                            ]
+                        },
+                    ]
+                }],
+
+                ["*cols",
+                    ["*btn", { "href": "https://www.google.com/search?rlz=1C5CHFA_enFR857FR857&sxsrf=APwXEdcYnZJlKJpHOrmzCBwe330HRQ8fMA:1683559185890&q=Homer+Simpson+personality&sa=X&ved=2ahUKEwjczO7Zgub-AhUZVKQEHZ62Du0Q1QJ6BQioARAB", "align": "start" }, ["*icon", { "type": "magnifier" }], "homer simpson personality"],
+                    ["*btn", { "href": "https://www.google.com/search?rlz=1C5CHFA_enFR857FR857&sxsrf=APwXEdcYnZJlKJpHOrmzCBwe330HRQ8fMA:1683559185890&q=Homer+Simpson+job+salary&sa=X&ved=2ahUKEwjczO7Zgub-AhUZVKQEHZ62Du0Q1QJ6BQijARAB", "align": "start" }, ["*icon", { "type": "magnifier" }], "homer simpson job salary"],
+                    ["*btn", { "href": "https://www.google.com/search?rlz=1C5CHFA_enFR857FR857&sxsrf=APwXEdcYnZJlKJpHOrmzCBwe330HRQ8fMA:1683559185890&q=Homer+Simpson+weight&sa=X&ved=2ahUKEwjczO7Zgub-AhUZVKQEHZ62Du0Q1QJ6BQimARAB", "align": "start" }, ["*icon", { "type": "magnifier" }], "homer simpson weight"],
+                    ["*btn", { "href": "https://www.google.com/search?rlz=1C5CHFA_enFR857FR857&sxsrf=APwXEdcYnZJlKJpHOrmzCBwe330HRQ8fMA:1683559185890&q=Voice+of+Homer+Simpson+dead&sa=X&ved=2ahUKEwjczO7Zgub-AhUZVKQEHZ62Du0Q1QJ6BQikARAB", "align": "start" }, ["*icon", { "type": "magnifier" }], "voice of homer simpson dead"],
+                    ["*btn", { "href": "https://www.google.com/search?rlz=1C5CHFA_enFR857FR857&sxsrf=APwXEdcYnZJlKJpHOrmzCBwe330HRQ8fMA:1683559185890&q=Homer+Simpson+address&sa=X&ved=2ahUKEwjczO7Zgub-AhUZVKQEHZ62Du0Q1QJ6BQinARAB", "align": "start" }, ["*icon", { "type": "magnifier" }], "homer simpson address"],
+                    ["*btn", { "href": "https://www.google.com/search?rlz=1C5CHFA_enFR857FR857&sxsrf=APwXEdcYnZJlKJpHOrmzCBwe330HRQ8fMA:1683559185890&q=Homer+Simpson+characters&sa=X&ved=2ahUKEwjczO7Zgub-AhUZVKQEHZ62Du0Q1QJ6BQilARAB", "align": "start" }, ["*icon", { "type": "magnifier" }], "homer simpson characters"],
+                ],
 
                 // legal notice
                 ["*c:section", { "className": "italic" },
@@ -534,13 +572,112 @@
                 ["*c:accordion!2ahUKEwjczO7Zgub-AhUZVKQEHZ62Du0Q2esEegQIdRBX", {
                     "sectionClassName": "text-sm py-2",
                     "sections": [
-                        { "title": "Birth year", "key": "2ahUKEwjczO7Zgub-AhUZVKQEHZ62Du0Qh_0CegQIGxAA", "content": ["Under construction..."] },
-                        { "title": "Catch phrases", "key": "2ahUKEwjczO7Zgub-AhUZVKQEHZ62Du0Qw5oDKAF6BAgdEAI", "content": ["Under construction..."] },
-                        { "title": "Personality", "key": "2ahUKEwjczO7Zgub-AhUZVKQEHZ62Du0Q_JoDKAB6BAhGEAE", "content": ["Under construction..."] },
+                        {
+                            "title": "Birth year", "key": "2ahUKEwjczO7Zgub-AhUZVKQEHZ62Du0Qh_0CegQIGxAA", "content": [
+                                ["*c:rcard.div", {
+                                    "lang": "en",
+                                    "header": {
+                                        "title": "Homer Simpson - Wikipedia",
+                                        "pos": "last",
+                                        "href": "https://en.wikipedia.org/wiki/Homer_Simpson#:~:text=In%20the%20fourth%20season%20episode,the%20time%20of%20the%20episode.",
+                                        "src": {
+                                            "ref": "https://en.wikipedia.org › wiki › Homer_Simpson",
+                                            "refPos": "first",
+                                        }
+                                    },
+                                    "footer": [
+                                        "Search for: ", ["#a.link", { "href": "https://www.google.com/search?rlz=1C5CHFA_enFR857FR857&sxsrf=APwXEdd7xuoHhPhAo_7Xgtt2I0ImyMJsxA:1684834553058&q=homer+simpson+birth+year&sa=X&ved=2ahUKEwjN86jokYv_AhXMM-wKHQ2bBfUQ3rMBKAJ6BAhCEAM&cshid=1684834585416888" }, "homer simpson birth year"]
+                                    ]
+                                },
+                                    ["#p.text-lg", "May 12, 1956"],
+                                    ["#p", "In the fourth season episode \"Duffless\", Homer's drivers license shows his birthdate of being ", ["#em", "May 12, 1956"], ", which would have made him 36 years old at the time of the episode."],
+                                ]
+                            ]
+                        },
+                        {
+                            "title": "Catch phrases", "key": "2ahUKEwjczO7Zgub-AhUZVKQEHZ62Du0Qw5oDKAF6BAgdEAI", "content": [
+                                ["*c:rcard.div", {
+                                    "lang": "en",
+                                    "header": {
+                                        "title": "\"D'oh!\" ( - d - Wikipedia",
+                                        "pos": "last",
+                                        "href": "https://en.m.wikipedia.org/wiki/D%27oh!#:~:text=%22D'oh!%22%20(,about%20to%20happen%20to%20him.",
+                                        "src": {
+                                            "ref": "https://en.m.wikipedia.org › wiki",
+                                            "refPos": "first",
+                                        }
+                                    },
+                                    "footer": [
+                                        "Search for: ", ["#a.link", { "href": "https://www.google.com/search?rlz=1C5CHFA_enFR857FR857&sxsrf=APwXEdd7xuoHhPhAo_7Xgtt2I0ImyMJsxA:1684834553058&q=homer+simpson+catch+phrase&sa=X&ved=2ahUKEwjN86jokYv_AhXMM-wKHQ2bBfUQ3rMBKAJ6BAg_EAM&cshid=1684834585416888" }, "homer simpson catch phrase"]
+                                    ]
+                                },
+                                    ["#p.text-lg", "D'oh!"],
+                                    ["#p", ["#em", "\"D'oh!\" (/doʊʔ/)"], " is the most famous catchphrase used by the fictional character Homer Simpson, from The Simpsons, an animated sitcom. It is an exclamation typically used after Homer injures himself, realizes that he has done something foolish, or when something bad has happened or is about to happen to him."],
+                                ]
+                            ]
+                        },
+                        {
+                            "title": "Personality", "key": "2ahUKEwjczO7Zgub-AhUZVKQEHZ62Du0Q_JoDKAB6BAhGEAE", "content": [
+                                ["*c:rcard.div", {
+                                    "lang": "en",
+                                    "header": {
+                                        "title": "Homer Simpson - Simple English Wikipedia, the free encyclopedia",
+                                        "pos": "last",
+                                        "href": "https://simple.m.wikipedia.org/wiki/Homer_Simpson#:~:text=Homer%20is%20clumsy%2C%20fat%20and,animated%20characters%20of%20modern%20times.",
+                                        "src": {
+                                            "ref": "https://en.wikipedia.org › wiki › Homer_Simpson",
+                                            "refPos": "first",
+                                        }
+                                    },
+                                    "footer": [
+                                        "Search for: ", ["#a.link", { "href": "https://www.google.com/search?rlz=1C5CHFA_enFR857FR857&sxsrf=APwXEdd7xuoHhPhAo_7Xgtt2I0ImyMJsxA:1684834553058&q=homer+simpson+personality&sa=X&ved=2ahUKEwjN86jokYv_AhXMM-wKHQ2bBfUQ3rMBKAJ6BAhBEAM&cshid=1684834585416888" }, "homer simpson personality"]
+                                    ]
+                                },
+                                    ["#p", "Homer is ", ["#em", "clumsy, fat and very lazy"], ". He is also an alcoholic, and is not very intelligent. He works as a Safety Inspector at the Springfield Nuclear Power Plant. Homer is one of the most popular and famous fictional characters and is thought of as one of the greatest comedic animated characters of modern times."]
+                                ]
+                            ]
+                        },
                     ]
                 }],
+                ["*ab:imgList", {
+                    "title": "People also search for",
+                    "height": 128,
+                    "imgs": [
+                        {
+                            "width": 84,
+                            "title": "Bart Simpson",
+                            "href": "https://www.google.com/search?rlz=1C5CHFA_enFR857FR857&sxsrf=APwXEdcYnZJlKJpHOrmzCBwe330HRQ8fMA:1683559185890&si=AMnBZoFk_ppfOKgdccwTD_PVhdkg37dbl-p8zEtOPijkCaIHMudHnDPPm805Gm3NpozPM11de75CeG9QIcSFFBzpUdxwF2kVIGvGzgSGtiyV9-XQNRO1UQ8MDCbg8DMq14WAl342nyjFSkvzEuVdfkFKsUdOdzootYamB4SYj-lfSGl9HglxajZKeFbL_YqWNxJ_oE0M5pn1XVB9SMz_FgJj3uRNDkfgIEoSMEb55SOZRHscmF_4lVT_WqyaN023uoPuyROcqOUGaGycywsCG8XWM3mLSKpmIyL8EvuRCEyNOBda7DFggVY%3D&q=Bart+Simpson&sa=X&ved=2ahUKEwjczO7Zgub-AhUZVKQEHZ62Du0Qs9oBKAB6BAgTEAI",
+                            "src": "data:image/png;base64,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"
+                        },
+                        {
+                            "width": 84,
+                            "title": "Marge Simpson",
+                            "href": "https://www.google.com/search?rlz=1C5CHFA_enFR857FR857&sxsrf=APwXEdcYnZJlKJpHOrmzCBwe330HRQ8fMA:1683559185890&si=AMnBZoFk_ppfOKgdccwTD_PVhdkg37dbl-p8zEtOPijkCaIHMoIDQPPiJdu8Z21CY-5JAGOw4pC1b9H8jxtn1ySFrDyrOX99pdok-cAaLdF9MM-dDxj33qgFamD7O_krlYi36dELYy0X3MTdsmiRXtSNzd48mVFbVpnTTXzwh1bQovqSsWISADaFQRmrr_OVef_wrN34TsXGUAg8N2EBHOKpfgPPRHwZ-kyxay6dfehap0FNqLa4hfcvwuGgHp4fj5_R7pDirQcntiXt7f_zT6nhP65fhL5qVVzRi5OEN0f6WPe0J547VHo%3D&q=Marge+Simpson&sa=X&ved=2ahUKEwjczO7Zgub-AhUZVKQEHZ62Du0Qs9oBKAF6BAgTEAM",
+                            "src": "data:image/png;base64,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"
+                        },
+                        {
+                            "width": 84,
+                            "title": "Lisa Simpson",
+                            "href": "https://www.google.com/search?rlz=1C5CHFA_enFR857FR857&sxsrf=APwXEdcYnZJlKJpHOrmzCBwe330HRQ8fMA:1683559185890&si=AMnBZoFk_ppfOKgdccwTD_PVhdkg37dbl-p8zEtOPijkCaIHMtSDmCisHu0HrL2UNrCoI1qHDnMt8Yv3_1rYZJNy6wsKMJ4mxvKqrew6mBXqHr8BZdZJ_vaaPz9qODNSikccv2jVRLGAyzcU_vjQ3ARj7ZXP3hTh2hrncUfAI-SPQVnxYfYT1e4-4PpF1luHitotgTKdVSZnBNA75ZF_6SQJvmtXk8izC3ESyIdvGwGzMbD4zvgTxFETSpXuoyNaTJfk3hlCBvb9uqu4gpm3ZFZbrt9byTT4HebJcGE8BsmWNPYOZfLVVko%3D&q=Lisa+Simpson&sa=X&ved=2ahUKEwjczO7Zgub-AhUZVKQEHZ62Du0Qs9oBKAJ6BAgTEAQ",
+                            "src": "data:image/png;base64,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"
+                        },
+                        {
+                            "width": 84,
+                            "title": "Maggie Simpson",
+                            "href": "https://www.google.com/search?rlz=1C5CHFA_enFR857FR857&sxsrf=APwXEdcYnZJlKJpHOrmzCBwe330HRQ8fMA:1683559185890&si=AMnBZoFk_ppfOKgdccwTD_PVhdkg37dbl-p8zEtOPijkCaIHMgkqj7Wfteog0mCHcShHoUgttZ6HDdVPl0l1RE4qQXgdLdaZdGkU3YkRLe5mD8u3JZJPErmfGu10GYi0qK1rsw213LVfO1FR4jitpRMCg3MhXBWtxaOwFC_QBxf9xerdUWbUJkGCWq6OuetdhP1nOfY0jJxX4vWfyTLALwXY7ysHi1tu0oPwf4T8t_3JXTqUEuviN9Lpv_xKS_4QUo1hPvtCMHDVZuvH2u2LkYh_6cfZy3QHlsXoDfOFZEbqp8x4yXdLvP0%3D&q=Maggie+Simpson&sa=X&ved=2ahUKEwjczO7Zgub-AhUZVKQEHZ62Du0Qs9oBKAN6BAgTEAU",
+                            "src": "data:image/png;base64,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"
+                        },
+                    ]
+                }],
+                // btn and icon are provided by the base app -> no bundle namespace
+                ["*btn.mt-5", {
+                    "href": "https://www.google.com/search?rlz=1C5CHFA_enFR857FR857&sxsrf=APwXEdcYnZJlKJpHOrmzCBwe330HRQ8fMA:1683559185890&q=Homer+Simpson&stick=H4sIAAAAAAAAAONgFuLQz9U3yDA1MVWCs7QEgzNTUssTK4v9UitKgktSC4p_MYoFpOYX5KQqJOYU5ysUpyYWJWcopOUXLWLl9cjPTS1SCM7MLSjOz9vByniLTZKh5Nm1WcKLVmXcWbDt4MRbXi31YbWzRDTbEgG1ZONfcQAAAA&sa=X&ved=2ahUKEwjczO7Zgub-AhUZVKQEHZ62Du0Q4qYDegQIExAG"
+                },
+                    "See more", ["*icon", { "type": "r-arrow" }]
+                ]
             ]
         };
+
 
         globalThis["init-state"] = {
             dataType: "SearchResponse",

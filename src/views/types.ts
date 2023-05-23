@@ -1,5 +1,5 @@
 import { interfaceId } from "@asimojs/asimo";
-import { LML, JsxContent } from "../libs/lml/types";
+import { LML, JsxContent } from "@asimojs/lml/dist/types";
 
 export type Lml2JSX = (lml: LML) => JsxContent;
 

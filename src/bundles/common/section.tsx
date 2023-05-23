@@ -1,5 +1,5 @@
+import { JsxContent } from "@asimojs/lml/dist/types";
 import { component, componentId } from "@traxjs/trax-preact";
-import { JsxContent } from "../../libs/lml/types";
 
 export interface SectionProps {
     title?: string;
@@ -13,7 +13,7 @@ export const Section = component("Section", (props: SectionProps) => {
 
     let titleSection: JsxContent = "";
     if (title) {
-        titleSection = <div className="text-base pb-2">{title}</div>
+        titleSection = <div className="text-lg pb-2">{title}</div>
     }
 
     return <div data-id={componentId()} className="section mt-7 text-sm" >

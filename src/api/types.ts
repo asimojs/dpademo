@@ -1,4 +1,4 @@
-import { LML, LmlUpdate } from "../libs/lml/types";
+import { LML, LmlUpdate } from "@asimojs/lml/dist/types";
 
 export interface ErrorResponse {
     type: "Error";

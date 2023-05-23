@@ -1,7 +1,7 @@
 import { interfaceId } from "@asimojs/asimo";
 import { SearchResponse } from "../api/types";
-import { LML, JsxContent } from "../libs/lml/types";
 import { SearchMoreQuery } from "../api/searchMore";
+import { JsxContent, LML } from "@asimojs/lml/dist/types";
 
 // ------------------------------------------------------------------------------------------------------------
 
@@ -42,7 +42,9 @@ export interface SearchService {
     /** Get more results on top of a previous search */
     getMoreResults(query: SearchMoreQuery, navigate?: boolean): Promise<boolean>;
     /** Load a search response that has already been fetched (e.g. in the start page) */
-    loadSearchResponse(r: SearchResponse, q: SearchQuery, navigate?:boolean): Promise<void>;
+    loadSearchResponse(r: SearchResponse, q: SearchQuery, navigate?: boolean): Promise<void>;
+    /** Register a Preact component so that it can be used in search responses */
+    registerBaseComponent(name: string, cpt: Function): void;
 }
 
 export interface SearchQuery {
