@@ -100,19 +100,21 @@ function useContext(iid, defaultValue = null) {
 const Lml2JsxIID = interfaceId("asimo.dpademo.views.Lml2JSX");
 
 const ResultCard = component("ResultCard", (props) => {
-    let { lang, header, children, sideContent, footerLinks } = props;
-    const state = useTraxState({ count: 0 });
+    let { lang, header, children, sideContent, footerLinks, footer } = props;
     const lml2jsx = useContext(Lml2JsxIID);
     let sideSection = "";
     let logo = "";
-    let footerSection = "";
+    let footerSection1 = "";
+    let footerSection2 = "";
     if (lml2jsx) {
         if (sideContent) {
             sideSection = lml2jsx(sideContent);
         }
-        logo = lml2jsx(header.src.logo);
+        if (header.src.logo) {
+            logo = lml2jsx(header.src.logo);
+        }
         if (footerLinks) {
-            footerSection = jsx("div", Object.assign({ className: "pt-1" }, { children: footerLinks.map((lnk, idx) => {
+            footerSection1 = jsx("div", Object.assign({ className: "pt-1" }, { children: footerLinks.map((lnk, idx) => {
                     if (idx === 0) {
                         return lml2jsx(lnk);
                     }
@@ -121,17 +123,21 @@ const ResultCard = component("ResultCard", (props) => {
                     }
                 }) }));
         }
+        if (footer) {
+            footerSection2 = jsx("div", Object.assign({ className: "pt-1 text-sm" }, { children: lml2jsx(footer) }));
+        }
     }
     const headerLast = header.pos === "last";
-    const topMargin = headerLast ? "mt-1" : "mt-7";
+    const topMargin = headerLast ? "" : "mt-7";
     const headerMargin = headerLast ? "mt-2" : "";
-    const headerSection = jsxs(Fragment, { children: [jsxs("div", Object.assign({ className: `header flex ${headerMargin}` }, { children: [jsx("div", Object.assign({ className: "border rounded-full flex items-center justify-center mt-1", style: { height: 26, width: 26 } }, { children: logo })), jsxs("div", Object.assign({ className: "px-2" }, { children: [jsxs("div", Object.assign({ className: "text-sm", onClick: () => state.count++ }, { children: [header.src.name, state.count ? state.count : ""] })), jsx("div", Object.assign({ className: "text-xs" }, { children: header.src.ref }))] }))] })), jsx("div", Object.assign({ className: "title pt-1 text-xl" }, { children: jsx("a", Object.assign({ className: "link font-medium", href: header.href }, { children: header.title })) }))] });
-    return jsxs("div", Object.assign({ "data-id": componentId(), lang: lang, className: `resultCard flex font-normal ${topMargin}` }, { children: [jsxs("div", Object.assign({ className: "mainsection flex-1 pe-2" }, { children: [headerLast ? "" : headerSection, jsx("div", Object.assign({ className: 'content text-xs pt-1' }, { children: children })), headerLast ? headerSection : "", footerSection] })), jsx("div", Object.assign({ className: "sidesection text-xs " }, { children: sideSection }))] }));
+    const headerSection = jsxs(Fragment, { children: [jsxs("div", Object.assign({ className: `header flex ${headerMargin}` }, { children: [!logo ? "" :
+                        jsx("div", Object.assign({ className: "border rounded-full flex items-center justify-center mt-1", style: { height: 26, width: 26 } }, { children: logo })), jsxs("div", Object.assign({ className: logo ? "px-2" : "" }, { children: [header.src.name ? jsx("div", Object.assign({ className: "text-sm" }, { children: header.src.name })) : "", jsx("div", Object.assign({ className: "text-xs" }, { children: header.src.ref }))] }))] })), jsx("div", Object.assign({ className: "title pt-2 text-xl leading-tight" }, { children: jsx("a", Object.assign({ className: "link font-medium", href: header.href }, { children: header.title })) }))] });
+    return jsxs("div", Object.assign({ "data-id": componentId(), lang: lang, className: `resultCard flex font-normal ${topMargin}` }, { children: [jsxs("div", Object.assign({ className: "mainsection flex-1 pe-2" }, { children: [headerLast ? "" : headerSection, jsx("div", Object.assign({ className: 'content text-xs pt-1' }, { children: children })), headerLast ? headerSection : "", footerSection1, footerSection2] })), jsx("div", Object.assign({ className: "sidesection text-xs " }, { children: sideSection }))] }));
 });
 
 const Img = component("Img", (props) => {
     let { height, width, alt, src, href } = props;
-    return jsx("div", Object.assign({ "data-id": componentId(), className: 'img inline-block border rounded-md overflow-hidden', style: { height, width } }, { children: jsx("a", Object.assign({ href: href }, { children: jsx("img", { style: { height, width }, alt: alt, src: src }) })) }));
+    return jsx("div", Object.assign({ "data-id": componentId(), className: 'img inline-block border rounded-md overflow-hidden', style: { height, width } }, { children: jsx("a", Object.assign({ href: href }, { children: jsx("img", { style: { height, width }, alt: alt, src: src, loading: "lazy" }) })) }));
 });
 
 const Facts = component("Facts", (props) => {
@@ -142,7 +148,7 @@ const Facts = component("Facts", (props) => {
     entryClassName = entryClassName || "text-xs";
     const lml2jsx = useContext(Lml2JsxIID, () => "[...]");
     if (cols > 1) {
-        return jsxs("div", Object.assign({ "data-id": componentId(), className: 'facts columns-2 pt-2' }, { children: [jsx("div", Object.assign({ className: "" }, { children: printFacts(0, mid) })), jsx("div", Object.assign({ className: "" }, { children: printFacts(mid + 1, len - 1) }))] }));
+        return jsxs("div", Object.assign({ "data-id": componentId(), className: 'facts columns-2 pt-2' }, { children: [jsx("div", { children: printFacts(0, mid) }), jsx("div", { children: printFacts(mid + 1, len - 1) })] }));
     }
     else {
         return jsx("div", Object.assign({ "data-id": componentId(), className: 'facts  pt-2' }, { children: jsx("div", Object.assign({ className: "" }, { children: printFacts(0, len - 1) })) }));
@@ -163,8 +169,8 @@ const Accordion = component("Accordion", (props) => {
     const lml2jsx = useContext(Lml2JsxIID, () => "[...]");
     const state = useTraxState({ sections: {} });
     const sectionStates = state.sections;
-    return jsxs("div", Object.assign({ "data-id": componentId(), className: 'accordion mt-7' }, { children: [!title ? "" :
-                jsx("div", Object.assign({ className: "title text-xl pb-2" }, { children: lml2jsx(title) })), jsx("div", Object.assign({ className: "sections text-base", onClick: handleClick }, { children: sections.map((section, idx) => jsxs("div", Object.assign({ className: "section" }, { children: [jsxs("div", Object.assign({ "data-section-key": section.key, className: `${sectionClassName} flex border-t cursor-pointer` }, { children: [jsx("div", Object.assign({ className: "flex-1" }, { children: section.title })), jsx("div", Object.assign({ className: "w-8" }, { children: jsx(ArrowIcon, { idx: idx, up: !!sectionStates[section.key] }) }))] })), jsx("div", Object.assign({ className: "content pt-1 pb-4 " + (sectionStates[section.key] ? "" : "hidden") }, { children: lml2jsx(section.content) }))] }))) }))] }));
+    return jsxs("div", Object.assign({ "data-id": componentId(), className: 'accordion mt-7 border-b' }, { children: [!title ? "" :
+                jsx("div", Object.assign({ className: "title text-xl pb-2" }, { children: lml2jsx(title) })), jsx("div", Object.assign({ className: "sections text-base", onClick: handleClick }, { children: sections.map((section, idx) => jsxs("div", Object.assign({ className: "section" }, { children: [jsxs("div", Object.assign({ "data-section-key": section.key, className: `${sectionClassName} flex border-t cursor-pointer` }, { children: [section.iconSrc ? jsx("div", Object.assign({ className: "icon pe-4" }, { children: jsx("img", { className: "object-fill border rounded", src: section.iconSrc, style: { height: 30, width: 30 }, "aria-hidden": "true" }) })) : "", jsx("div", Object.assign({ className: "flex-1" }, { children: section.title })), jsx("div", Object.assign({ className: "w-8" }, { children: jsx(ArrowIcon, { idx: idx, up: !!sectionStates[section.key] }) }))] })), jsx("div", Object.assign({ className: "content pt-1 pb-4 " + (sectionStates[section.key] ? "" : "hidden") }, { children: lml2jsx(section.content) }))] }))) }))] }));
     function handleClick(e) {
         var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
@@ -210,7 +216,7 @@ const Section = component("Section", (props) => {
     className = className || "";
     let titleSection = "";
     if (title) {
-        titleSection = jsx("div", Object.assign({ className: "text-base pb-2" }, { children: title }));
+        titleSection = jsx("div", Object.assign({ className: "text-lg pb-2" }, { children: title }));
     }
     return jsxs("div", Object.assign({ "data-id": componentId(), className: "section mt-7 text-sm" }, { children: [titleSection, jsxs("div", Object.assign({ className: className }, { children: [" ", children, " "] }))] }));
 });
