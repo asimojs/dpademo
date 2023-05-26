@@ -20,10 +20,10 @@
   resolved "https://registry.yarnpkg.com/@asimojs/asimo/-/asimo-0.0.1.tgz#4b420f6ed607edabbb771f7d3ca3c6f2f27fd28d"
   integrity sha512-J57h6RvQ2S7dbMn/X4SJS/nyVOTMIyw2vWl6EEr9QV0odCPIxwMr0I1BVFsPa5u3rq0i/FaWzkAxJ0K5uafrrg==
 
-"@asimojs/lml@^0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@asimojs/lml/-/lml-0.0.1.tgz#0a69708b7993c2601175060c6a96736dd7cbf7b0"
-  integrity sha512-FzkTJpevUDk8Nlv16m/jKoyc9TsBnnpwrbhYaqvKWFsB/CAmGrZkMh/1TJBeeZmYR+hYAXTHzoreBizXQ3wcGw==
+"@asimojs/lml@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@asimojs/lml/-/lml-0.0.2.tgz#64b65a3da91b7b56ce1df89fa10b3dc67a92ae26"
+  integrity sha512-JEdE7g417TjefJcUuS3jxwqz2a+/cJcO7N3QNenybQYEnumP38VONtf+3ve8V2JC5jYYpkD1jnFoSAEBR4FJtg==
 
 "@babel/code-frame@^7.10.4", "@babel/code-frame@^7.21.4":
   version "7.21.4"

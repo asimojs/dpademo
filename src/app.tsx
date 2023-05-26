@@ -21,16 +21,18 @@ async function main() {
         // these bundles will be built and loaded separately in production mode
         await import('./bundles/common');
         await import('./bundles/abtest');
+        await import('./bundles/sideimg');
     }
 
     const nav = (await asm.get(NavServiceIID))!;
-    const initState = (globalThis as any)["init-state"];
-
     const ss = await asm.get(SearchServiceIID);
     ss.registerBaseComponent("btn", Button);
     ss.registerBaseComponent("icon", Icon);
     ss.registerBaseComponent("cols", Columns);
 
+    // Determine if an init state was provided in the main index file
+    // (e.g. Search Response embedded by the server)
+    const initState = (globalThis as any)["init-state"];
     if (initState && initState.dataType === "SearchResponse") {
         await ss.loadSearchResponse(initState.data.response, initState.data.query);
     }

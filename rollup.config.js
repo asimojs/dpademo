@@ -32,4 +32,20 @@ export default [{
         'preact/hooks'
     ],
     plugins: [typescript()],
+}, {
+    input: 'src/bundles/sideimg/index.ts',
+    output: {
+        file: 'dist-bundles/bundle-sideimg.js',
+        format: 'es'
+    },
+    external: [
+        'typescript',
+        '@asimojs/asimo',
+        '@traxjs/trax',
+        '@traxjs/trax-preact',
+        'react/jsx-runtime',
+        'preact',
+        'preact/hooks'
+    ],
+    plugins: [typescript()],
 }];

@@ -16,15 +16,18 @@ export interface SearchResponse {
     /** Widget bundles used in the response */
     bundles?: { [id: string]: BundleRef }
     /** Header section */
-    header?: LML[],
+    header?: LML,
     /** Main results set */
-    main?: LML[],
+    main?: LML,
     /** Optional updates for the main section - interpreted if main is not provided */
     mainUpdates?: LmlUpdate[];
     /** Sidebar results set */
-    sidebar?: LML[],
+    sidebar?: LML,
     /** Optional updates for the sidebar section - interpreted if main is not provided */
     sidebarUpdates?: LmlUpdate[];
+    /** Optional data for the popover section */
+    popover?: LML;
+    popoverUpdates?: LmlUpdate[];
 }
 
 export interface BundleRef {

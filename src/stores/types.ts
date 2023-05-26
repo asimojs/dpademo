@@ -45,6 +45,8 @@ export interface SearchService {
     loadSearchResponse(r: SearchResponse, q: SearchQuery, navigate?: boolean): Promise<void>;
     /** Register a Preact component so that it can be used in search responses */
     registerBaseComponent(name: string, cpt: Function): void;
+    /** Remove the content in the popover placeholder */
+    closePopover(): void;
 }
 
 export interface SearchQuery {

@@ -21,11 +21,11 @@
         "dev": "vite",
         "coverage": "vitest run --coverage",
         "serve": "vite preview",
-        "gh-pages": "yarn build && vitest run && bash copy-gh-pages.bash"
+        "gh-pages": "yarn build && bash copy-gh-pages.bash"
     },
     "dependencies": {
         "@asimojs/asimo": "^0.0.1",
-        "@asimojs/lml": "^0.0.1",
+        "@asimojs/lml": "^0.0.2",
         "@traxjs/trax": "^0.0.3",
         "@traxjs/trax-preact": "^0.0.5",
         "preact": "^10.11.3",

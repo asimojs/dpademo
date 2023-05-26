@@ -24,7 +24,7 @@ export const Icon = component("Icon", (props: IconProps) => {
     size = size || 18;
     const cls = `inline-block relative ${className || "-top-0.5 mx-2"}`;
     return <svg width={size} height={size} focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 22" className={cls}>
-        <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" />
+        <path  className="fill-current" d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" />
     </svg>
 });
 

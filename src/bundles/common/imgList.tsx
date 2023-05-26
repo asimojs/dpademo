@@ -1,4 +1,6 @@
+import { asm } from "@asimojs/asimo";
 import { component, componentId } from "@traxjs/trax-preact";
+import { SearchServiceIID } from "../../stores/types";
 
 export interface ImgProps {
     height?: number;
@@ -15,7 +17,7 @@ export interface ImgItem {
     /** URL from where the image was extracted */
     lpage?: string;
     /** Unique identifier */
-    ved?: string;
+    key?: string;
 }
 
 export const ImgList = component("ImgList", (props: ImgProps) => {
@@ -26,7 +28,8 @@ export const ImgList = component("ImgList", (props: ImgProps) => {
         {imgs?.map((img, idx) => {
             const ms = (idx === 0) ? "" : "ms-1";
 
-            return <div className={`inline-block ${ms}`} style={{ height: height, width: img.width }}>
+            return <div className={`inline-block cursor-pointer ${ms}`} style={{ height: height, width: img.width }}
+                onClick={() => handleClick(img.key)}>
                 <img alt={img.alt} src={img.src} className="h-full w-full" />
             </div>
         })}
@@ -41,4 +44,21 @@ export const ImgList = component("ImgList", (props: ImgProps) => {
                 : content}
         </div>
     </div>
+
+    async function handleClick(imgKey?: string) {
+        if (imgKey) {
+            // submit request to get more data
+            const ss = await asm.get(SearchServiceIID);
+            if (ss) {
+                const q = ss.data.lastResult!.query;
+                ss.getMoreResults({
+                    searchInput: q.searchInput,
+                    src: {
+                        key: imgKey,
+                        componentType: "ImgList",
+                    }
+                });
+            }
+        }
+    }
 });

@@ -38,13 +38,18 @@ async function searchMore(query: SearchMoreQuery): Promise<SearchResponse | Erro
 
         if (lastContentKey === "2ahUKEwjczO7Zgub-AhUZVKQEHZ62Du0Qq7kBKAB6BAheEAA") {
             const m = await import("./data/homer-more-2ahUKEwjczO7Zgub-AhUZVKQEHZ62Du0Qq7kBKAB6BAheEAA");
-            await delay(300); // network + server processing
+            // await delay(300); // network + server processing
             return m.default;
         }
 
         if (lastContentKey === "2ahUKEwjczO7Zgub-AhUZVKQEHZ62Du0Qq7kBKAB6BAhAAAB") {
             const m = await import("./data/homer-more-2ahUKEwjczO7Zgub-AhUZVKQEHZ62Du0Qq7kBKAB6BAhAAAB");
-            await delay(300); // network + server processing
+            // await delay(300); // network + server processing
+            return m.default;
+        }
+
+        if (query.src.componentType === "ImgList") {
+            const m = await import("./data/homer-more-2ahUKEwjczO7Zgub-AhUZVKQEHZ62Du0Q_R16BAgkEAA1");
             return m.default;
         }
     }

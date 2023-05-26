@@ -21,6 +21,7 @@ export function createSearchStore(): SearchService {
             lastResult: null
         });
         const baseComponents: { [key: string]: Function } = {};
+        let components: ComponentMap = {};
 
         const srv = {
             data,
@@ -43,7 +44,7 @@ export function createSearchStore(): SearchService {
             },
 
             async loadSearchResponse(r: SearchResponse, q: SearchQuery, navigate = true) {
-                const components: ComponentMap = {};
+                components = {};
 
                 try {
                     await loadBundles(r.bundles, components);
@@ -79,8 +80,6 @@ export function createSearchStore(): SearchService {
                 const results = await search(query);
 
                 if (results.type === "SearchResponse") {
-                    const components: ComponentMap = {};
-
                     try {
                         await loadBundles(results.bundles, components);
                         if (navigate) {
@@ -90,14 +89,22 @@ export function createSearchStore(): SearchService {
                         console.log("Module load error:", ex);
                     }
 
-                    if (results.mainUpdates || results.sidebarUpdates) {
+                    if (results.mainUpdates) {
                         // update last Result
                         const res = data.lastResult.results;
                         if (results.main) {
                             res.main = results.main;
                         } else if (results.mainUpdates) {
-                            updateLML(res.main!, results.mainUpdates);
+                            res.main = updateLML(res.main!, results.mainUpdates);
                         }
+                    }
+
+                    if (results.popoverUpdates) {
+                        const res = data.lastResult.results;
+                        if (!res.popover) {
+                            res.popover = [];
+                        }
+                        res.popover = updateLML(res.popover, results.popoverUpdates);
                     }
                 }
 
@@ -106,6 +113,13 @@ export function createSearchStore(): SearchService {
 
             registerBaseComponent(name: string, cpt: Function) {
                 baseComponents[name] = cpt;
+            },
+
+            closePopover() {
+                const r = data.lastResult;
+                if (r && r.type === "SearchResults" && r.results.popover) {
+                    r.results.popover = "";
+                }
             }
         }
         return srv;
