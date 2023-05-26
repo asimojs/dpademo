@@ -70,10 +70,28 @@ const ImgList = component("ImgList", (props) => {
     height = height || 150;
     const content = jsx("div", Object.assign({ style: { width: "200%" } }, { children: imgs === null || imgs === void 0 ? void 0 : imgs.map((img, idx) => {
             const ms = (idx === 0) ? "" : "ms-1";
-            return jsx("div", Object.assign({ className: `inline-block ${ms}`, style: { height: height, width: img.width } }, { children: jsx("img", { alt: img.alt, src: img.src, className: "h-full w-full" }) }));
+            return jsx("div", Object.assign({ className: `inline-block cursor-pointer ${ms}`, style: { height: height, width: img.width }, onClick: () => handleClick(img.key) }, { children: jsx("img", { alt: img.alt, src: img.src, className: "h-full w-full" }) }));
         }) }));
     return jsx("div", Object.assign({ "data-id": componentId(), className: 'imgList' }, { children: jsx("div", Object.assign({ className: 'inline-block border rounded-xl overflow-hidden', style: { height: height + "px" } }, { children: href ? jsx("a", Object.assign({ href: href, "aria-label": "Images in this result" }, { children: content }))
                 : content })) }));
+    function handleClick(imgKey) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (imgKey) {
+                // submit request to get more data
+                const ss = yield asm.get(SearchServiceIID);
+                if (ss) {
+                    const q = ss.data.lastResult.query;
+                    ss.getMoreResults({
+                        searchInput: q.searchInput,
+                        src: {
+                            key: imgKey,
+                            componentType: "ImgList",
+                        }
+                    });
+                }
+            }
+        });
+    }
 });
 
 /**
