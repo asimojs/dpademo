@@ -1,4 +1,6 @@
 
+echo "DO NOT FORGET TO UPDATE searchResponse IN public/homer_simpson.html"
+
 # change asset paths to relative as github pages are not served from root path
 cat dist/index.html | sed 's/"\/assets/"\.\/assets/g' > dist/index2.html
 cat dist/homer_simpson.html | sed 's/"\/assets/"\.\/assets/g' > dist/homer_simpson2.html
@@ -9,4 +11,5 @@ mv dist/homer_simpson2.html dist/homer_simpson.html
 rm -rf ../dpademo-gh-pages/docs
 cp -R ./dist ../dpademo-gh-pages
 mv ../dpademo-gh-pages/dist/ ../dpademo-gh-pages/docs
+
 
