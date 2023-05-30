@@ -5,7 +5,7 @@ Live demo: [search page][search] and [results page][results] - Design document: 
 
 
 
-This project is a proof of concept that demonstrates how highly dynamic and heterogeneous web pages can be implemented through an advanced [Single Page Application][SPA] (SPA) architecture (i.e. with HTML produced client-side).
+This project is a proof of concept that demonstrates how highly dynamic and heterogeneous web pages can be implemented using an advanced [Single Page Application][SPA] (SPA) architecture (i.e. with HTML produced client-side).
 
 The main goal was to see if the SPA architecture could be tuned into something more dynamic (thus the name *Dynamic Page Application*) in order to load a very minimal set of resources in the initial page - and ensure a very good startup time - and then load everything on-demand. The main capability brought by DPAs is the possibility to dynamically load JS bundles built independently from the main application - whereas in traditional SPAs (or [PWAs][PWA]) dynamic imports are still created at build time (through packagers like [babel] or [rollup])
 

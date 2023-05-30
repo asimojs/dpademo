@@ -9,9 +9,25 @@ export const SearchPanel = component("SearchPanel", (props: { nav: NavService })
         <div className="input-container flex justify-center">
             <div className="w-1/2" >
                 <SearchField className="py-2.5 h-11" />
-                {/* <div className="info w-1/4 bg-neutral-200 mt-5">
-                    Welcome..
-                </div> */}
+                <div className="info mt-12 px-5">
+                    <p>
+                        This application is a proof of concept that demonstrates how highly <em>dynamic</em> and <em>heterogeneous</em> web pages can be implemented
+                        using an advanced <a className="link" href="https://en.wikipedia.org/wiki/Single-page_application">Single Page Application</a> architecture.
+                    </p>
+                    <p className="mt-2">
+                        This demo can be accessed through two different entry points:
+                        the current <a className="link" href=".">search</a> page or a direct link
+                        to the <a className="link" href="./homer_simpson.html">results</a> pages that simulates a search triggered from an external link.
+                    </p>
+                    <p className="mt-2">
+                        The general architecture considerations behind this project are described
+                        in this <a className="link" href="https://docs.google.com/document/d/1GqCh5UbKQdyXI8jyj1YoDHQOfTM8bDsYIVEzXJIdPO8">document</a>.
+                    </p>
+                    <p className="mt-10 italic text-sm">
+                        For more information about the demo content
+                        please visit the <a className="link" href="https://github.com/asimojs/dpademo">project's github page</a>.
+                    </p>
+                </div>
             </div>
 
         </div>
