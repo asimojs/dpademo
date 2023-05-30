@@ -47,4 +47,6 @@ async function main() {
         , document.getElementById('main')!);
 }
 
+console.log("[For Safari Users] This application relies on import maps that are only supported as of Safari 16.4 (March 27, 2023)\n---");
+
 main();

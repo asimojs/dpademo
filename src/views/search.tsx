@@ -7,14 +7,15 @@ export const SearchPanel = component("SearchPanel", (props: { nav: NavService })
 
     return <div data-id={componentId()} className="search-panel  py-64">
         <div className="input-container flex justify-center">
-            <SearchField className="h-11 w-1/2 py-2.5"/>
+            <div className="w-1/2" >
+                <SearchField className="py-2.5 h-11" />
+                {/* <div className="info w-1/4 bg-neutral-200 mt-5">
+                    Welcome..
+                </div> */}
+            </div>
+
         </div>
     </div>
-
-    async function search() {
-        const ss = await asm.get(SearchServiceIID);
-        ss?.search({ searchInput: "Homer Simpson" });
-    }
 });
 
 export const SearchField = component("SearchPanel", (props: { className?: string }) => {
@@ -40,7 +41,7 @@ export const SearchField = component("SearchPanel", (props: { className?: string
 
 const SearchIcon = component("SearchIcon", () => {
     // 42
-    let dim=32;
+    let dim = 32;
     return <svg width={dim} height={dim} viewBox="0 0 24 24" version="1.1" aria-hidden="false" >
         <desc lang="en">Magnifying glass</desc>
         {/* Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools */}

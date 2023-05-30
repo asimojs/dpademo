@@ -7,6 +7,7 @@ import { Img } from "./img";
 import { Facts } from "./facts";
 import { Accordion } from "./accordion";
 import { Section } from "./section";
+import { ResultsHeader } from "./resultsHeader";
 
 // Interface ID that will be used by the consumer
 export const CommonBundleIID = interfaceId<ComponentBundle>("asimo.dpademo.bundles.common");
@@ -15,6 +16,7 @@ const bundle = {
     counter: Counter,
     imgList: ImgList,
     rcard: ResultCard,
+    rheader: ResultsHeader,
     img: Img,
     facts: Facts,
     accordion: Accordion,

@@ -26,7 +26,7 @@ export interface RcHeader {
 
 export const ResultCard = component("ResultCard", (props: RcProps) => {
     let { lang, header, children, sideContent, footerLinks, footer } = props;
-    const lml2jsx = useContext(Lml2JsxIID);
+    const lml2jsx = useContext(Lml2JsxIID, () => "[...]")!;
 
     let sideSection: JsxContent = "";
     let logo: JsxContent = "";

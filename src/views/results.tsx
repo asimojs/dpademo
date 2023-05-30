@@ -17,6 +17,8 @@ export const SearchResultsPanel = component("SearchResultsPanel", (props: { sear
     const r = res.results;
     const lml2jsx = res.lml2jsx;
     if (!state.ctxt) {
+        // store context into state to avoid creating a new instance (that will trigger unnecessary re-render)
+        // when this componentn is refreshed
         state.ctxt = createContext(Lml2JsxIID, lml2jsx);
     }
     const L2JContext = state.ctxt;
@@ -24,8 +26,9 @@ export const SearchResultsPanel = component("SearchResultsPanel", (props: { sear
     return <L2JContext.Provider value={lml2jsx}>
         <div data-id={componentId()} className="results-container flex justify-center text-sm">
             <div className="w-full max-w-screen-xl relative">
-                <div className="header bg-neutral-100 p-5 text-sm">
+                <div className="header bg-neutral-100 px-5 pt-5 pb-3 text-xs">
                     <div> About <b className="font-bold">{r.totalMatchCount}</b> results ({r.processingTime} seconds) </div>
+                    <div>{r.header && lml2jsx(r.header)}</div>
                 </div>
                 <div className="body flex pt-3 px-5">
                     <div className="main flex-grow me-5">
@@ -39,8 +42,13 @@ export const SearchResultsPanel = component("SearchResultsPanel", (props: { sear
                         }
                     </div>
                 </div>
+
                 <div className="popover absolute w-5/12 top-0 right-0">
                     {r.popover && lml2jsx(r.popover)}
+                </div>
+                <div className="footer bg-neutral-100 italic px-5 pt-9 pb-4 text-xs mt-10">
+                    For more information about this demo, please visit
+                    the <a className="link" href="https://github.com/asimojs/dpademo">project's github page</a>
                 </div>
             </div>
 
