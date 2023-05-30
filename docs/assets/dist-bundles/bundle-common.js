@@ -119,7 +119,7 @@ const Lml2JsxIID = interfaceId("asimo.dpademo.views.Lml2JSX");
 
 const ResultCard = component("ResultCard", (props) => {
     let { lang, header, children, sideContent, footerLinks, footer } = props;
-    const lml2jsx = useContext(Lml2JsxIID);
+    const lml2jsx = useContext(Lml2JsxIID, () => "[...]");
     let sideSection = "";
     let logo = "";
     let footerSection1 = "";
@@ -239,12 +239,19 @@ const Section = component("Section", (props) => {
     return jsxs("div", Object.assign({ "data-id": componentId(), className: "section mt-7 text-sm" }, { children: [titleSection, jsxs("div", Object.assign({ className: className }, { children: [" ", children, " "] }))] }));
 });
 
+const ResultsHeader = component("ResultsHeader", (props) => {
+    let { title, subTitle, logo } = props;
+    const lml2jsx = useContext(Lml2JsxIID, () => "[...]");
+    return jsxs("div", Object.assign({ "data-id": componentId(), className: "rheader mt-4 text-sm flex" }, { children: [jsxs("div", Object.assign({ className: "w-15" }, { children: [" ", logo && lml2jsx(logo), " "] })), jsxs("div", Object.assign({ className: "ps-4" }, { children: [jsx("div", Object.assign({ className: "title text-2xl" }, { children: title })), jsx("div", Object.assign({ className: "subtitle pt-0.5" }, { children: subTitle }))] }))] }));
+});
+
 // Interface ID that will be used by the consumer
 const CommonBundleIID = interfaceId("asimo.dpademo.bundles.common");
 const bundle = {
     counter: Counter,
     imgList: ImgList,
     rcard: ResultCard,
+    rheader: ResultsHeader,
     img: Img,
     facts: Facts,
     accordion: Accordion,
