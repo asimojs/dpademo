@@ -94,6 +94,21 @@ capabilities (the current implementation relies on mocked [data] loaded through 
 [redux]: https://redux.js.org/
 [api]: https://github.com/asimojs/dpademo/tree/main/src/api
 
+## Running the demo locally
+
+```bash
+# install
+yarn install
+
+# dev server
+yarn dev
+
+# production build
+yarn build
+
+# local server to serve the production build
+yarn serve
+```
 
 ## Further enhancements...
 
