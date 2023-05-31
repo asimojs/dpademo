@@ -33,7 +33,7 @@ export const ImgBlock = component("ImgBlock", (props: ImgBlockProps) => {
     return <div data-id={componentId()} className='imgblock'>
         {hdr}
         <a href={img.href}>
-            <img className="w-full" src={img.src} alt={title} width={img.width} height={img.height} />
+            <img className="w-full" src={img.src} alt={title} width={img.width} height={img.height} loading="lazy"/>
         </a>
         <div className="title text-base flex py-4 px-3 border-b-2">
             <div className="flex-1 pe-5">

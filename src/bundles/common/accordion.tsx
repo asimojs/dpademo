@@ -44,7 +44,7 @@ export const Accordion = component("Accordion", (props: AccordionProps) => {
                 <div className="section">
                     <div data-section-key={section.key} className={`${sectionClassName} flex border-t cursor-pointer`}>
                         {section.iconSrc ? <div className="icon pe-4">
-                            <img className="object-fill border rounded" src={section.iconSrc} style={{ height: 30, width: 30 }} aria-hidden="true" />
+                            <img className="object-fill border rounded" src={section.iconSrc} style={{ height: 30, width: 30 }} aria-hidden="true" loading="lazy"/>
                         </div> : ""}
                         <div className="flex-1">{section.title}</div>
                         <div className="w-8">

@@ -28,7 +28,7 @@ export const ImgList = component("ImgList", (props: ImgListProps) => {
             return <a href={img.href}>
                 <div className={`inline-block ${ms}`} style={{ width: img.width }} >
                     <div>
-                        <img alt={img.title} style={{ height: height, width: img.width }}
+                        <img alt={img.title} style={{ height: height, width: img.width }} loading="lazy"
                             src={img.src} className="h-full w-full border rounded-xl object-scale-down" />
                     </div>
                     <div className="pt-1 pe-1">

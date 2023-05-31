@@ -58,7 +58,7 @@ export const Video = component("VideoList", (props: VideoProps) => {
     const { className, img, src, duration } = props;
 
     return <div className={`${className || ""} relative rounded-lg overflow-hidden`} style={{ width: 148, height: 83 }}>
-        <img className="w-full h-full" src={img} />
+        <img className="w-full h-full" src={img}  loading="lazy"/>
         <div className="video absolute top-0 left-0">
             <video onMouseOver={e => start(e)} src={src} className="w-full h-full" muted playsInline preload="none" webkit-playsinline="" />
         </div>

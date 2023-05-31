@@ -21,7 +21,7 @@ export const ImgGroup = component("ImgGroup", (props: ImgGroupProps) => {
         <div className="content columns-3 gap-3 pt-2">
             {images.map(img => <div className="w-full break-inside-avoid-column	mb-3">
                 <a href={img.href}>
-                    <img className="w-full rounded-xl block" src={img.src} alt={img.title} height={img.height} width={img.width} />
+                    <img className="w-full rounded-xl block" src={img.src} alt={img.title} height={img.height} width={img.width} loading="lazy"/>
                     <p title={img.title} className="title pt-2 text-xs truncate max-h-6 overflow-hidden">{img.title}</p>
                 </a>
             </div>)}

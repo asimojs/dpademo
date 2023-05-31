@@ -30,7 +30,7 @@ export const ImgList = component("ImgList", (props: ImgProps) => {
 
             return <div className={`inline-block cursor-pointer ${ms}`} style={{ height: height, width: img.width }}
                 onClick={() => handleClick(img.key)}>
-                <img alt={img.alt} src={img.src} className="h-full w-full" />
+                <img alt={img.alt} src={img.src} className="h-full w-full" loading="lazy"/>
             </div>
         })}
     </div>
