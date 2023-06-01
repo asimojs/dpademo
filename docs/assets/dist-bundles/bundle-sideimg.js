@@ -1,6 +1,6 @@
 import { interfaceId, asm } from '@asimojs/asimo';
 import { jsx, jsxs } from 'react/jsx-runtime';
-import { component, componentId } from '@traxjs/trax-preact';
+import { componentId, component } from '@traxjs/trax-preact';
 import { useContext as useContext$1 } from 'preact/hooks';
 import 'preact';
 
@@ -60,11 +60,19 @@ interfaceId("asimo.doc.stores.NavService");
 const SearchServiceIID = interfaceId("asimo.doc.stores.SearchService");
 // ------------------------------------------------------------------------------------------------------------
 
+/**
+ * Create a test id by removing the unique counter from component id
+ * and concatenating the optional suffix
+ */
+function testId(suffix) {
+    return componentId().replace(/\:\d+$/, suffix ? ":" + suffix : "");
+}
+
 const Dialog = component("Dialog", (props) => {
     let { title, children, header } = props;
     const lml2jsx = useContext(Lml2JsxIID, () => "[...]");
     const hdr = header ? jsx("div", Object.assign({ className: "header top-0" }, { children: lml2jsx(header) })) : "";
-    return jsxs("div", Object.assign({ "data-id": componentId(), className: 'dialog relative bg-neutral-300 border-neutral-200 border rounded-lg mt-7 overflow-hidden min-h-full' }, { children: [jsx("div", Object.assign({ className: "close-btn absolute right-2 top-1.5 cursor-pointer text-neutral-700 px-1 py-1\n            hover:bg-neutral-600 hover:text-white hover:rounded-full", onClick: close }, { children: jsxs("svg", Object.assign({ viewBox: "0 0 24 24", focusable: "false", height: "24", width: "24" }, { children: [jsx("path", { d: "M0 0h24v24H0z", fill: "none" }), jsx("path", { className: "fill-current", d: "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" })] })) })), hdr, jsx("div", Object.assign({ className: "content px-3 pb-7 text-xs" }, { children: children }))] }));
+    return jsxs("div", Object.assign({ "data-id": componentId(), "data-testid": testId(), className: 'dialog relative bg-neutral-300 border-neutral-200 border rounded-lg mt-7 overflow-hidden min-h-full' }, { children: [jsx("div", Object.assign({ className: "close-btn absolute right-2 top-1.5 cursor-pointer text-neutral-700 px-1 py-1\n            hover:bg-neutral-600 hover:text-white hover:rounded-full", onClick: close }, { children: jsxs("svg", Object.assign({ viewBox: "0 0 24 24", focusable: "false", height: "24", width: "24" }, { children: [jsx("path", { d: "M0 0h24v24H0z", fill: "none" }), jsx("path", { className: "fill-current", d: "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" })] })) })), hdr, jsx("div", Object.assign({ className: "content px-3 pb-7 text-xs" }, { children: children }))] }));
     function close() {
         return __awaiter(this, void 0, void 0, function* () {
             const ss = yield asm.get(SearchServiceIID);
@@ -79,12 +87,12 @@ const ImgBlock = component("ImgBlock", (props) => {
     let { title, img, header } = props;
     const lml2jsx = useContext(Lml2JsxIID, () => "[...]");
     const hdr = header ? jsxs("div", Object.assign({ className: "header bg-neutral-400 h-10 mt-0 flex pt-2 px-3 text-white" }, { children: [jsx("div", Object.assign({ className: "border rounded-full bg-white flex items-center justify-center", style: { height: 26, width: 26 } }, { children: lml2jsx(header.logo) })), jsx("div", Object.assign({ className: "pt-1 px-3" }, { children: lml2jsx(header.content) }))] })) : "";
-    return jsxs("div", Object.assign({ "data-id": componentId(), className: 'imgblock' }, { children: [hdr, jsx("a", Object.assign({ href: img.href }, { children: jsx("img", { className: "w-full", src: img.src, alt: title, width: img.width, height: img.height }) })), jsxs("div", Object.assign({ className: "title text-base flex py-4 px-3 border-b-2" }, { children: [jsxs("div", Object.assign({ className: "flex-1 pe-5" }, { children: [jsx("div", { children: jsx("a", Object.assign({ className: "hover:underline", href: img.href }, { children: title })) }), jsx("div", Object.assign({ className: "text-xs text-neutral-600" }, { children: "Images may be subject to copyright." }))] })), jsx("div", Object.assign({ className: "text-sm " }, { children: jsx("a", Object.assign({ href: img.href, className: "inline-block px-6 py-1 bg-neutral-400 rounded-full hover:underline" }, { children: "Visit" })) }))] }))] }));
+    return jsxs("div", Object.assign({ "data-id": componentId(), "data-testid": testId(), className: 'imgblock' }, { children: [hdr, jsx("a", Object.assign({ href: img.href }, { children: jsx("img", { className: "w-full", src: img.src, alt: title, width: img.width, height: img.height, loading: "lazy" }) })), jsxs("div", Object.assign({ className: "title text-base flex py-4 px-3 border-b-2" }, { children: [jsxs("div", Object.assign({ className: "flex-1 pe-5" }, { children: [jsx("div", { children: jsx("a", Object.assign({ className: "hover:underline", href: img.href }, { children: title })) }), jsx("div", Object.assign({ className: "text-xs text-neutral-600" }, { children: "Images may be subject to copyright." }))] })), jsx("div", Object.assign({ className: "text-sm " }, { children: jsx("a", Object.assign({ href: img.href, className: "inline-block px-6 py-1 bg-neutral-400 rounded-full hover:underline" }, { children: "Visit" })) }))] }))] }));
 });
 
 const ImgGroup = component("ImgGroup", (props) => {
     let { title, images } = props;
-    return jsxs("div", Object.assign({ "data-id": componentId(), className: 'imgblock mt-5' }, { children: [jsx("div", Object.assign({ className: "head text-xl pb-2" }, { children: title })), jsx("div", Object.assign({ className: "content columns-3 gap-3 pt-2" }, { children: images.map(img => jsx("div", Object.assign({ className: "w-full break-inside-avoid-column\tmb-3" }, { children: jsxs("a", Object.assign({ href: img.href }, { children: [jsx("img", { className: "w-full rounded-xl block", src: img.src, alt: img.title, height: img.height, width: img.width }), jsx("p", Object.assign({ title: img.title, className: "title pt-2 text-xs truncate max-h-6 overflow-hidden" }, { children: img.title }))] })) }))) }))] }));
+    return jsxs("div", Object.assign({ "data-id": componentId(), "data-testid": testId(), className: 'imgblock mt-5' }, { children: [jsx("div", Object.assign({ className: "head text-xl pb-2" }, { children: title })), jsx("div", Object.assign({ className: "content columns-3 gap-3 pt-2" }, { children: images.map(img => jsx("div", Object.assign({ className: "w-full break-inside-avoid-column\tmb-3" }, { children: jsxs("a", Object.assign({ href: img.href }, { children: [jsx("img", { className: "w-full rounded-xl block", src: img.src, alt: img.title, height: img.height, width: img.width, loading: "lazy" }), jsx("p", Object.assign({ title: img.title, className: "title pt-2 text-xs truncate max-h-6 overflow-hidden" }, { children: img.title }))] })) }))) }))] }));
 });
 
 // Interface ID that will be used by the consumer

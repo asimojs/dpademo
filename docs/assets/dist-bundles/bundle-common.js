@@ -65,14 +65,22 @@ const Counter = component("Counter", () => {
     return jsxs("div", Object.assign({ "data-id": componentId(), className: 'counter', title: "Click to reset", onClick: cs.reset }, { children: [jsxs("h1", { children: [" Counter 7:  ", jsx("span", Object.assign({ className: "counter-value" }, { children: cs.data.count }))] }), jsx("button", Object.assign({ onClick: cs.home }, { children: " Navigate Home " }))] }));
 });
 
+/**
+ * Create a test id by removing the unique counter from component id
+ * and concatenating the optional suffix
+ */
+function testId(suffix) {
+    return componentId().replace(/\:\d+$/, suffix ? ":" + suffix : "");
+}
+
 const ImgList = component("ImgList", (props) => {
     let { height, imgs, href } = props;
     height = height || 150;
     const content = jsx("div", Object.assign({ style: { width: "200%" } }, { children: imgs === null || imgs === void 0 ? void 0 : imgs.map((img, idx) => {
             const ms = (idx === 0) ? "" : "ms-1";
-            return jsx("div", Object.assign({ className: `inline-block cursor-pointer ${ms}`, style: { height: height, width: img.width }, onClick: () => handleClick(img.key) }, { children: jsx("img", { alt: img.alt, src: img.src, className: "h-full w-full" }) }));
+            return jsx("div", Object.assign({ className: `inline-block cursor-pointer ${ms}`, style: { height: height, width: img.width }, onClick: () => handleClick(img.key) }, { children: jsx("img", { alt: img.alt, src: img.src, className: "h-full w-full", loading: "lazy" }) }));
         }) }));
-    return jsx("div", Object.assign({ "data-id": componentId(), className: 'imgList' }, { children: jsx("div", Object.assign({ className: 'inline-block border rounded-xl overflow-hidden', style: { height: height + "px" } }, { children: href ? jsx("a", Object.assign({ href: href, "aria-label": "Images in this result" }, { children: content }))
+    return jsx("div", Object.assign({ "data-id": componentId(), "data-testid": testId(), className: 'imgList' }, { children: jsx("div", Object.assign({ className: 'inline-block border rounded-xl overflow-hidden', style: { height: height + "px" } }, { children: href ? jsx("a", Object.assign({ href: href, "aria-label": "Images in this result" }, { children: content }))
                 : content })) }));
     function handleClick(imgKey) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -155,7 +163,7 @@ const ResultCard = component("ResultCard", (props) => {
 
 const Img = component("Img", (props) => {
     let { height, width, alt, src, href } = props;
-    return jsx("div", Object.assign({ "data-id": componentId(), className: 'img inline-block border rounded-md overflow-hidden', style: { height, width } }, { children: jsx("a", Object.assign({ href: href }, { children: jsx("img", { style: { height, width }, alt: alt, src: src, loading: "lazy" }) })) }));
+    return jsx("div", Object.assign({ "data-id": componentId(), "data-testid": testId(), className: 'img inline-block border rounded-md overflow-hidden', style: { height, width } }, { children: jsx("a", Object.assign({ href: href }, { children: jsx("img", { style: { height, width }, alt: alt, src: src, loading: "lazy" }) })) }));
 });
 
 const Facts = component("Facts", (props) => {
@@ -166,10 +174,10 @@ const Facts = component("Facts", (props) => {
     entryClassName = entryClassName || "text-xs";
     const lml2jsx = useContext(Lml2JsxIID, () => "[...]");
     if (cols > 1) {
-        return jsxs("div", Object.assign({ "data-id": componentId(), className: 'facts columns-2 pt-2' }, { children: [jsx("div", { children: printFacts(0, mid) }), jsx("div", { children: printFacts(mid + 1, len - 1) })] }));
+        return jsxs("div", Object.assign({ "data-id": componentId(), "data-testid": testId(), className: 'facts columns-2 pt-2' }, { children: [jsx("div", { children: printFacts(0, mid) }), jsx("div", { children: printFacts(mid + 1, len - 1) })] }));
     }
     else {
-        return jsx("div", Object.assign({ "data-id": componentId(), className: 'facts  pt-2' }, { children: jsx("div", Object.assign({ className: "" }, { children: printFacts(0, len - 1) })) }));
+        return jsx("div", Object.assign({ "data-id": componentId(), "data-testid": testId(), className: 'facts  pt-2' }, { children: jsx("div", Object.assign({ className: "" }, { children: printFacts(0, len - 1) })) }));
     }
     function printFacts(startIdx, lastIdx) {
         const r = [];
@@ -187,8 +195,8 @@ const Accordion = component("Accordion", (props) => {
     const lml2jsx = useContext(Lml2JsxIID, () => "[...]");
     const state = useTraxState({ sections: {} });
     const sectionStates = state.sections;
-    return jsxs("div", Object.assign({ "data-id": componentId(), className: 'accordion mt-7 border-b' }, { children: [!title ? "" :
-                jsx("div", Object.assign({ className: "title text-xl pb-2" }, { children: lml2jsx(title) })), jsx("div", Object.assign({ className: "sections text-base", onClick: handleClick }, { children: sections.map((section, idx) => jsxs("div", Object.assign({ className: "section" }, { children: [jsxs("div", Object.assign({ "data-section-key": section.key, className: `${sectionClassName} flex border-t cursor-pointer` }, { children: [section.iconSrc ? jsx("div", Object.assign({ className: "icon pe-4" }, { children: jsx("img", { className: "object-fill border rounded", src: section.iconSrc, style: { height: 30, width: 30 }, "aria-hidden": "true" }) })) : "", jsx("div", Object.assign({ className: "flex-1" }, { children: section.title })), jsx("div", Object.assign({ className: "w-8" }, { children: jsx(ArrowIcon, { idx: idx, up: !!sectionStates[section.key] }) }))] })), jsx("div", Object.assign({ className: "content pt-1 pb-4 " + (sectionStates[section.key] ? "" : "hidden") }, { children: lml2jsx(section.content) }))] }))) }))] }));
+    return jsxs("div", Object.assign({ "data-id": componentId(), "data-testid": testId(), className: 'accordion mt-7 border-b' }, { children: [!title ? "" :
+                jsx("div", Object.assign({ className: "title text-xl pb-2" }, { children: lml2jsx(title) })), jsx("div", Object.assign({ className: "sections text-base", onClick: handleClick }, { children: sections.map((section, idx) => jsxs("div", Object.assign({ className: "section" }, { children: [jsxs("div", Object.assign({ "data-section-key": section.key, className: `${sectionClassName} flex border-t cursor-pointer` }, { children: [section.iconSrc ? jsx("div", Object.assign({ className: "icon pe-4" }, { children: jsx("img", { className: "object-fill border rounded", src: section.iconSrc, style: { height: 30, width: 30 }, "aria-hidden": "true", loading: "lazy" }) })) : "", jsx("div", Object.assign({ className: "flex-1" }, { children: section.title })), jsx("div", Object.assign({ className: "w-8" }, { children: jsx(ArrowIcon, { idx: idx, up: !!sectionStates[section.key] }) }))] })), jsx("div", Object.assign({ className: "content pt-1 pb-4 " + (sectionStates[section.key] ? "" : "hidden") }, { children: lml2jsx(section.content) }))] }))) }))] }));
     function handleClick(e) {
         var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
@@ -236,13 +244,13 @@ const Section = component("Section", (props) => {
     if (title) {
         titleSection = jsx("div", Object.assign({ className: "text-lg pb-2" }, { children: title }));
     }
-    return jsxs("div", Object.assign({ "data-id": componentId(), className: "section mt-7 text-sm" }, { children: [titleSection, jsxs("div", Object.assign({ className: className }, { children: [" ", children, " "] }))] }));
+    return jsxs("div", Object.assign({ "data-id": componentId(), "data-testid": testId(), className: "section mt-7 text-sm" }, { children: [titleSection, jsxs("div", Object.assign({ className: className }, { children: [" ", children, " "] }))] }));
 });
 
 const ResultsHeader = component("ResultsHeader", (props) => {
     let { title, subTitle, logo } = props;
     const lml2jsx = useContext(Lml2JsxIID, () => "[...]");
-    return jsxs("div", Object.assign({ "data-id": componentId(), className: "rheader mt-4 text-sm flex" }, { children: [jsxs("div", Object.assign({ className: "w-15" }, { children: [" ", logo && lml2jsx(logo), " "] })), jsxs("div", Object.assign({ className: "ps-4" }, { children: [jsx("div", Object.assign({ className: "title text-2xl" }, { children: title })), jsx("div", Object.assign({ className: "subtitle pt-0.5" }, { children: subTitle }))] }))] }));
+    return jsxs("div", Object.assign({ "data-id": componentId(), "data-testid": testId(), className: "rheader mt-4 text-sm flex" }, { children: [jsxs("div", Object.assign({ className: "w-15" }, { children: [" ", logo && lml2jsx(logo), " "] })), jsxs("div", Object.assign({ className: "ps-4" }, { children: [jsx("div", Object.assign({ className: "title text-2xl" }, { children: title })), jsx("div", Object.assign({ className: "subtitle pt-0.5" }, { children: subTitle }))] }))] }));
 });
 
 // Interface ID that will be used by the consumer
