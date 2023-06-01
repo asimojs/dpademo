@@ -2,6 +2,7 @@ import { component, componentId } from "@traxjs/trax-preact";
 import { useContext } from "../utils";
 import { Lml2JsxIID } from "../../views/types";
 import { LML } from "@asimojs/lml/dist/types";
+import { testId } from "../testutils";
 
 export interface ImgBlockProps {
     title: string;
@@ -30,7 +31,7 @@ export const ImgBlock = component("ImgBlock", (props: ImgBlockProps) => {
         <div className="pt-1 px-3">{lml2jsx(header.content)}</div>
     </div> : ""
 
-    return <div data-id={componentId()} className='imgblock'>
+    return <div data-id={componentId()} data-testid={testId()} className='imgblock'>
         {hdr}
         <a href={img.href}>
             <img className="w-full" src={img.src} alt={title} width={img.width} height={img.height} loading="lazy"/>

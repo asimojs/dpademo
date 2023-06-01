@@ -4,6 +4,7 @@ import { Lml2JsxIID } from "../../views/types";
 import { SearchServiceIID } from "../../stores/types";
 import { asm } from "@asimojs/asimo";
 import { LML } from "@asimojs/lml/dist/types";
+import { testId } from "../testutils";
 
 export interface AccordionProps {
     title?: LML;
@@ -33,7 +34,7 @@ export const Accordion = component("Accordion", (props: AccordionProps) => {
     const state = useTraxState<AccordionState>({ sections: {} });
     const sectionStates = state.sections;
 
-    return <div data-id={componentId()} className='accordion mt-7 border-b'>
+    return <div data-id={componentId()} data-testid={testId()} className='accordion mt-7 border-b'>
         {!title ? "" :
             <div className="title text-xl pb-2">
                 {lml2jsx(title)}

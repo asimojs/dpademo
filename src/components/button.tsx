@@ -1,5 +1,6 @@
 import { component, componentId } from "@traxjs/trax-preact";
 import { JsxContent } from "@asimojs/lml/dist/types";
+import { testId } from "../bundles/testutils";
 
 export interface ButtonProps {
     href: string;
@@ -20,9 +21,9 @@ export const Button = component("Button", (props: ButtonProps) => {
 
     // possible classNames: mt-1 mt-3 mt-4 mt-5 mt-2 mt-3 mt-4 mt-5
 
-    return <div data-id={componentId()} className={`btn flex ${className} h-12`} >
+    return <div data-id={componentId()} data-testid={testId()} className={`btn flex ${className} h-12`} >
         <a href={href} className={`flex-grow flex bg-neutral-200 mt-2 rounded-full ${cls} hover:bg-neutral-400 hover:text-white`}>
-            <span data-id={componentId()} className='h-full pt-2.5 text-base overflow-hidden' >
+            <span className='h-full pt-2.5 text-base overflow-hidden' >
                 {children}
             </span>
         </a>

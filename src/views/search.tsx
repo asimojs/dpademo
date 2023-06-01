@@ -1,11 +1,12 @@
 import { component, componentId } from "@traxjs/trax-preact";
 import { asm } from "@asimojs/asimo";
 import { NavService, SearchServiceIID } from "../stores/types";
+import { testId } from "../bundles/testutils";
 
 export const SearchPanel = component("SearchPanel", (props: { nav: NavService }) => {
     const { nav } = props;
 
-    return <div data-id={componentId()} className="search-panel  py-64">
+    return <div data-id={componentId()} data-testid={testId()} className="search-panel  py-64">
         <div className="input-container flex justify-center">
             <div className="w-1/2" >
                 <SearchField className="py-2.5 h-11" />
@@ -38,9 +39,10 @@ export const SearchField = component("SearchPanel", (props: { className?: string
     let { className } = props;
     className = className || "";
 
-    return <div className={`${className} flex px-3 bg-neutral-200 rounded-full text-neutral-600
-    cursor-pointer
-    border border-neutral-200 hover:border-neutral-400`} onClick={search}>
+    return <div data-id={componentId()} data-testid={testId()}
+        className={`${className} flex px-3 bg-neutral-200 rounded-full text-neutral-600
+        cursor-pointer
+        border border-neutral-200 hover:border-neutral-400`} onClick={search}>
         <div className="mx-1">
             <SearchIcon />
         </div>

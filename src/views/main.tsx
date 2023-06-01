@@ -3,6 +3,7 @@ import { SearchPanel } from "./search";
 import { NavBar } from "./navbar";
 import { SearchResultsPanel } from "./results";
 import { NavService } from "../stores/types";
+import { testId } from "../bundles/testutils";
 
 export const MainLayout = component("MainLayout", (props: { nav: NavService }) => {
     const { nav } = props;
@@ -20,7 +21,7 @@ export const MainLayout = component("MainLayout", (props: { nav: NavService }) =
     }
 
     const className = "px-3 py-1 bg-slate-600 rounded-lg text-white";
-    return <div data-id={componentId()} className="main-layout" style={{ minWidth: "1024px" }}>
+    return <div data-id={componentId()} data-testid={testId()} className="main-layout" style={{ minWidth: "1024px" }}>
         <NavBar nav={nav} />
         {content}
     </div>

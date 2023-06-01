@@ -2,6 +2,7 @@ import { component, componentId } from "@traxjs/trax-preact";
 import { useContext } from "../utils";
 import { Lml2JsxIID } from "../../views/types";
 import { JsxContent, LML } from "@asimojs/lml/dist/types";
+import { testId } from "../testutils";
 
 export interface FactsProps {
     cols?: number;
@@ -23,12 +24,12 @@ export const Facts = component("Facts", (props: FactsProps) => {
     const lml2jsx = useContext(Lml2JsxIID, () => "[...]")!;
 
     if (cols > 1) {
-        return <div data-id={componentId()} className='facts columns-2 pt-2'>
+        return <div data-id={componentId()} data-testid={testId()} className='facts columns-2 pt-2'>
             <div>{printFacts(0, mid)}</div>
             <div>{printFacts(mid + 1, len - 1)}</div>
         </div>
     } else {
-        return <div data-id={componentId()} className='facts  pt-2'>
+        return <div data-id={componentId()} data-testid={testId()} className='facts  pt-2'>
             <div className="">{printFacts(0, len - 1)}</div>
         </div>
     }

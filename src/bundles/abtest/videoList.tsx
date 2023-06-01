@@ -1,4 +1,5 @@
 import { component, componentId } from "@traxjs/trax-preact";
+import { testId } from "../testutils";
 
 export interface VideoListProps {
     title: string;
@@ -39,7 +40,7 @@ export const VideoList = component("VideoList", (props: VideoListProps) => {
         })}
     </div >
 
-    return <div data-id={componentId()} className='videoList mt-5 pb-2 border-b'>
+    return <div data-id={componentId()} data-testid={testId()} className='videoList mt-5 pb-2 border-b'>
         <div className="title text-xl pb-2">{title}</div>
         <div>
             {content}

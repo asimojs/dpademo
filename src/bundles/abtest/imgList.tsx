@@ -1,4 +1,5 @@
 import { component, componentId } from "@traxjs/trax-preact";
+import { testId } from "../testutils";
 
 export interface ImgListProps {
     title: string;
@@ -39,7 +40,7 @@ export const ImgList = component("ImgList", (props: ImgListProps) => {
         })}
     </div>
 
-    return <div data-id={componentId()} className='imgList mt-5'>
+    return <div data-id={componentId()} data-testid={testId()} className='imgList mt-5'>
         <div className="title text-lg pb-2">{title}</div>
         <div className='inline-block ' style={{ height: height }}>
             {content}

@@ -4,6 +4,7 @@ import { useContext } from "../utils";
 import { Lml2JsxIID } from "../../views/types";
 import { asm } from "@asimojs/asimo";
 import { SearchServiceIID } from "../../stores/types";
+import { testId } from "../testutils";
 
 
 export interface DialogProps {
@@ -20,7 +21,7 @@ export const Dialog = component("Dialog", (props: DialogProps) => {
 
     const hdr = header ? <div className="header top-0">{lml2jsx(header)}</div> : ""
 
-    return <div data-id={componentId()}
+    return <div data-id={componentId()} data-testid={testId()}
         className='dialog relative bg-neutral-300 border-neutral-200 border rounded-lg mt-7 overflow-hidden min-h-full'>
         <div className="close-btn absolute right-2 top-1.5 cursor-pointer text-neutral-700 px-1 py-1
             hover:bg-neutral-600 hover:text-white hover:rounded-full" onClick={close}>

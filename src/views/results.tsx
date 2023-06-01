@@ -3,6 +3,7 @@ import { SearchService, NavService } from "../stores/types";
 import { createContext, useContext } from "../bundles/utils";
 import { Lml2JsxIID } from "./types";
 import { LML } from "@asimojs/lml/dist/types";
+import { testId } from "../bundles/testutils";
 
 export const SearchResultsPanel = component("SearchResultsPanel", (props: { searchService: SearchService, nav: NavService }) => {
     const { searchService, nav } = props;
@@ -24,7 +25,7 @@ export const SearchResultsPanel = component("SearchResultsPanel", (props: { sear
     const L2JContext = state.ctxt;
 
     return <L2JContext.Provider value={lml2jsx}>
-        <div data-id={componentId()} className="results-container flex justify-center text-sm">
+        <div data-id={componentId()} data-testid={testId()} className="results-container flex justify-center text-sm">
             <div className="w-full max-w-screen-xl relative">
                 <div className="header bg-neutral-100 px-5 pt-5 pb-3 text-xs">
                     <div> About <b className="font-bold">{r.totalMatchCount}</b> results ({r.processingTime} seconds) </div>
@@ -75,7 +76,7 @@ const ResultsPanel = component("ResultsPanel", (props: { content?: LML }) => {
     // }
 
     return <div className="results-panel" lang="en">
-        <div style={{ width: 657 }} className="text-neutral-700">
+        <div style={{ width: 657 }} className="results-panel-content text-neutral-700">
             {cn ? lml2jsx(cn) : ""}
         </div>
     </div>

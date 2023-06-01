@@ -1,6 +1,7 @@
 import { asm } from "@asimojs/asimo";
 import { component, componentId } from "@traxjs/trax-preact";
 import { SearchServiceIID } from "../../stores/types";
+import { testId } from "../testutils";
 
 export interface ImgProps {
     height?: number;
@@ -35,7 +36,7 @@ export const ImgList = component("ImgList", (props: ImgProps) => {
         })}
     </div>
 
-    return <div data-id={componentId()} className='imgList'>
+    return <div data-id={componentId()} data-testid={testId()} className='imgList'>
         <div className='inline-block border rounded-xl overflow-hidden'
             style={{ height: height + "px" }}>
             {href ? <a href={href} aria-label="Images in this result">

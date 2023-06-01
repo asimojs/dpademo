@@ -1,4 +1,5 @@
 import { component, componentId } from "@traxjs/trax-preact";
+import { testId } from "../testutils";
 
 export interface ImgGroupProps {
     title: string;
@@ -14,7 +15,7 @@ export interface ImgGroupProps {
 export const ImgGroup = component("ImgGroup", (props: ImgGroupProps) => {
     let { title, images } = props;
 
-    return <div data-id={componentId()} className='imgblock mt-5'>
+    return <div data-id={componentId()} data-testid={testId()} className='imgblock mt-5'>
         <div className="head text-xl pb-2">
             {title}
         </div>

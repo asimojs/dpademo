@@ -3,6 +3,7 @@ import { NavService } from "../stores/types";
 import { asm } from "@asimojs/asimo";
 import { SearchServiceIID } from "../stores/types";
 import { SearchField } from "./search";
+import { testId } from "../bundles/testutils";
 
 export const NavBar = component("NavBar", (props: { nav: NavService }) => {
     const { nav } = props;
@@ -11,7 +12,7 @@ export const NavBar = component("NavBar", (props: { nav: NavService }) => {
     const mainView = nav.data.mainView;
     isSearchResult = (mainView.name === "search" && mainView.panel === "results");
 
-    return <div data-id={componentId()} className="navbar flex justify-center">
+    return <div data-id={componentId()} data-testid={testId()} className="navbar flex justify-center">
 
         <div className="input-container flex flex-grow p-3  max-w-screen-xl">
             <div className="w-40 ml-2 text-lg cursor-pointer" onClick={nav.home} title="Dynamic Page Application Demo">
