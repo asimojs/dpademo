@@ -1,5 +1,11 @@
 import { Page, expect } from "@playwright/test";
 
+export function testURL(page?: string) {
+    let CI = !!process.env.CI;
+    const server = CI ? "https://asimojs.github.io/dpademo" : "http://127.0.0.1:3000";
+    return `${server}/${page || ""}`;
+}
+
 export async function testResultsPanel(page: Page) {
     const resultsPanel = page.getByTestId("Preact%SearchResultsPanel");
     await resultsPanel.waitFor();

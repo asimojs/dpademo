@@ -1,8 +1,8 @@
 import { test, expect } from '@playwright/test';
-import { testResultsPanel } from './common';
+import { testResultsPanel, testURL } from './common';
 
 test.beforeEach(async ({ page }) => {
-    await page.goto('http://127.0.0.1:3000/homer_simpson.html');
+    await page.goto(testURL("homer_simpson.html"));
 });
 
 test.describe('Search Page', () => {
