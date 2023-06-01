@@ -61,9 +61,22 @@ const ResultsPanel = component("ResultsPanel", (props: { content?: LML }) => {
     const { content } = props;
     const lml2jsx = useContext(Lml2JsxIID, () => "[...]")!;
 
+    let cn = content;
+    // // This code splits the rendering in 2 waves - allows to shave a few ms on the initial rendering but not significantly
+    // const state = useTraxState({ init: true });
+    // if (Array.isArray(content)) {
+    //     if (state.init) {
+    //         cn = content.slice(0, Math.floor(content.length / 2));
+    //         setTimeout(() => {
+    //             // this will trigger a commponent re-render to display the full content
+    //             state.init = false;
+    //         }, 200);
+    //     }
+    // }
+
     return <div className="results-panel" lang="en">
         <div style={{ width: 657 }} className="text-neutral-700">
-            {content ? lml2jsx(content) : ""}
+            {cn ? lml2jsx(cn) : ""}
         </div>
     </div>
 });
