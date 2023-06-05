@@ -114,7 +114,7 @@ yarn serve
 
 The following parts were not covered in this proof of concept but should be worth considering for future evolutions:
 - responsive design: the demo doesn't offer a mobile specific layout - this would be really nice to have.
-- router: as previously mentioned, the application doesn't use the browser history API to manage back and forward navigation d
+- router: as previously mentioned, the application doesn't use the browser history API to manage back and forward navigation
 - CSS bundling: the demo focuses on the load of dynamic javascript modules, but CSS should be also covered. Interestingly the usage of [tailwindCSS] partially covers this problem by offering the possibility to have common set of CSS utility classes that are part of the core application bundle and that can be safely used everywhere. That being said, it would be interesting to support a "diff" tool to identify the missing utility classes and load them dynamically with the JS bundle.
 - more content: this demo tries to mock as much as possible the actual [google search results][GSPHS] for "Homer Simpson", but there as still a lot of missing data and actions that should be covered to completely be on par with the original page. That being said, adding 30% more content should not significantly change the performance order of magnitude (the response would be slightly bigger and the rendering should simply take a few more tens of ms).
 
